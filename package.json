@@ -10,7 +10,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject",
     "prepush": "npm run test"
   },
