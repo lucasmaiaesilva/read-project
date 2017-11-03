@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
+
+  componentDidMount = () => {
+    const url = 'http://localhost:3001/posts'
+    const headers = { 'Authorization': 'whatever-you-want' }
+    axios({
+      method:'get',
+      url,
+      headers,
+    })
+    .then(res => console.log(res.data))
+  }
+
   render() {
     return (
       <div className="App">
