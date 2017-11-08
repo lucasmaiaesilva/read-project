@@ -1,19 +1,8 @@
 import { combineReducers } from 'redux'
-
-function posts (state = {}, action) {
-  return state
-}
-
-function categories (state = {}, action) {
-  return state
-}
-
-function comments (state = {}, action) {
-  return state
-}
+import { postsIsLoading, postsHasErrored, posts } from './posts'
 
 export default combineReducers({
-  posts,
-  categories,
-  comments,
+  postsIsLoading,
+  postsHasErrored,
+  posts
 })
