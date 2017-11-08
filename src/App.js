@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Posts from './Components/Posts'
-import NotFound from './Components/NotFound'
+import Notfound from './Components/Notfound'
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <Route path="/" component={Posts} exact />
-        <Route path="/not-found" component={NotFound} exact />
+        <Switch>
+          <Route exact path="/" component={Posts} />
+          <Route component={Notfound} />
+        </Switch>
       </div>
     )
   }
