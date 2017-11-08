@@ -1,25 +1,17 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
+import Posts from './Components/Posts'
+import NotFound from './Components/NotFound'
 
 class App extends Component {
-
-  componentDidMount = () => {
-    const url = 'http://localhost:3001/posts'
-    const headers = { 'Authorization': 'whatever-you-want' }
-    axios({
-      method:'get',
-      url,
-      headers,
-    })
-    .then(res => console.log(res.data))
-  }
 
   render() {
     return (
       <div className="App">
-        <h1>Hello world!</h1>
+        <Route path="/" component={Posts} exact />
+        <Route path="/not-found" component={NotFound} exact />
       </div>
-    );
+    )
   }
 }
 
