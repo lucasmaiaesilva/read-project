@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Posts from './Components/Posts'
-import Notfound from './Components/Notfound'
+import Posts from './components/Posts'
+import Notfound from './components/Notfound'
 
 class App extends Component {
 
