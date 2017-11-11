@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { postsFetchData } from '../../actions/posts'
 
 class Posts extends Component {
@@ -16,7 +17,9 @@ class Posts extends Component {
     return (
       <ul>
         {this.props.posts.map(post => (
-          <li key={post.id}>{post.title}</li>
+          <li key={post.id}>
+            <Link to={`/posts/${post.id}`}>{post.title}</Link>
+          </li>
         ))}
       </ul>
     )
