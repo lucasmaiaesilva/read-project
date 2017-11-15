@@ -4,6 +4,7 @@ import Posts from './components/Posts'
 import Post from './components/Post'
 import Notfound from './components/Notfound'
 import Categories from './components/Categories'
+import HandlePost from './components/HandlePost'
 
 class App extends Component {
 
@@ -14,6 +15,8 @@ class App extends Component {
           <Route exact path="/" component={Posts} />
           <Route path="/posts/:id" component={Post} />
           <Route path="/categories" component={Categories} />
+          <Route path="/admin/post" component={HandlePost} />
+          <Route path="/admin/post/:id" component={HandlePost} />
           <Route component={Notfound} />
         </Switch>
       </div>
