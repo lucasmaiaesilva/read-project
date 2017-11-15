@@ -1,38 +1,19 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { commentsFetchData } from '../../actions/comments'
-import { get } from '../../utils/api'
+import { postFetchById } from '../../actions/posts'
 import Comments from '../Comments'
 
-class Post extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      post: [],
-      isLoading: false
-    }
-  }
+class Post extends PureComponent {
   componentDidMount() {
     const { id } = this.props.match.params
-    const urlPost = `http://localhost:3001/posts/${id}`
-    this.fetchData(urlPost, 'post')
+    this.props.fetchPost(id)
     this.props.fetchComments(id)
   }
 
-  fetchData(url, key) {
-    this.setState({
-      isLoading: true
-    })
-    get(url)
-      .then(res => this.setState({
-        [key]: res.data,
-        isLoading: false,
-      }))
-  }
-
   render () {
-    const { post, isLoading } = this.state
-    if (isLoading) {
+    const { post, c_isLoading, p_isLoading, comments } = this.props
+    if (p_isLoading) {
       return <h1>Loading...</h1>
     }
     return (
@@ -42,22 +23,28 @@ class Post extends Component {
           {post.body}
         </div>
         <Comments
-          isLoading={this.props.c_isLoading}
-          data={this.props.comments}
+          isLoading={c_isLoading}
+          data={comments}
         />
       </article>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  comments: state.comments,
-  c_hasErrored: state.commentsHasErrored,
-  c_isLoading: state.commentsIsLoading
-})
+const mapStateToProps = (state) => {
+  return {
+    comments: state.comments,
+    c_hasErrored: state.commentsHasErrored,
+    c_isLoading: state.commentsIsLoading,
+    p_hasErrored: state.postsHasErrored,
+    p_isLoading: state.postsIsLoading,
+    post: state.post
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchComments: (idPost) => dispatch(commentsFetchData(idPost))
+  fetchComments: (idPost) => dispatch(commentsFetchData(idPost)),
+  fetchPost: (idPost) => dispatch(postFetchById(idPost))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)
