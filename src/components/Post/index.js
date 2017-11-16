@@ -8,7 +8,7 @@ class Post extends PureComponent {
   componentDidMount() {
     const { match = {} } = this.props
     const { params = {} } = match
-    const id = params.id
+    const id = params
     this.props.fetchPost(id)
     this.props.fetchComments(id)
   }
