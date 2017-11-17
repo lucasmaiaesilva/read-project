@@ -107,6 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPost: (idPost) => dispatch(postFetchById(idPost)),
   insertPost: (post) => dispatch(insertPost(post)),
   updatePost: (id, post) => dispatch(updatePost(id, post))
+  // para o método de update mandar somente o id e no objeto post mandar somente o title, post
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HandlePost))
