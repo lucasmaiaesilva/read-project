@@ -2,6 +2,7 @@ const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 const POSTS_HAS_ERRORED = 'POSTS_HAS_ERRORED'
 const POSTS_FETCH_DATA_SUCCESS = 'POSTS_FETCH_DATA_SUCCESS'
 const POST_FETCH_BY_ID_DATA_SUCCESS = 'POST_FETCH_BY_ID_DATA_SUCCESS'
+const INSERT_UPDATE_POST_SUCCESS = 'INSERT_UPDATE_POST_SUCCESS'
 
 export function postsIsLoading(state = false, action) {
   switch (action.type) {
@@ -33,6 +34,8 @@ export function posts(state = [], action) {
 export function post(state = [], action) {
   switch (action.type) {
     case POST_FETCH_BY_ID_DATA_SUCCESS:
+      return action.post
+    case INSERT_UPDATE_POST_SUCCESS:
       return action.post
     default:
       return state

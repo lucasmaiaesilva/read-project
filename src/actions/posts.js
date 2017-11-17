@@ -1,4 +1,4 @@
-import { get } from '../utils/api'
+import { get, post } from '../utils/api'
 
 export function postsIsLoading(bool) {
   return {
@@ -24,6 +24,13 @@ export function postsFetchDataSuccess(posts) {
 export function postFetchByIdDataSuccess(post) {
   return {
     type: 'POST_FETCH_BY_ID_DATA_SUCCESS',
+    post
+  }
+}
+
+export function insertUpdatePostSuccess(post) {
+  return {
+    type: 'INSERT_UPDATE_POST_SUCCESS',
     post
   }
 }
@@ -54,6 +61,20 @@ export function postsFetchData() {
         return res.data
       })
       .then(posts => dispatch(postsFetchDataSuccess(posts)))
+      .catch(() => dispatch(postsHasErrored(true)))
+  }
+}
+
+export function insertUpdatePost(postData, id){
+  const baseUrl = 'http://localhost:3001/posts'
+  const url = id ? `${baseUrl}/${id}` : baseUrl
+  return (dispatch) => {
+    post(url, postData)
+      .then(res => {
+        dispatch(postsIsLoading(false))
+        return res.data
+      })
+      .then(post => dispatch(insertUpdatePostSuccess(post)))
       .catch(() => dispatch(postsHasErrored(true)))
   }
 }

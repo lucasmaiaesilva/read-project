@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import serializeForm from 'form-serialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { postFetchById } from '../../actions/posts'
+import uuidv1 from 'uuid/v1'
+import { postFetchById, insertUpdatePost } from '../../actions/posts'
 import Notfound from '../Notfound'
+
 
 class HandlePost extends Component {
 
@@ -34,9 +36,25 @@ class HandlePost extends Component {
   }
 
   handleSubmit = (e) => {
+    const { update = {} } = this.state
+    const { isUpdate ={} } = update
+    // separar os ambientes aqui e verificar se o isUpdate for true, usar o método de insert post,
+    // mas se for false, usar o método de update post e não esquecer de passar o id,
+    // se for usado o método de createPost no final dele redirecionar a rota para /admin/post/{idPost},
+    // qualquer dúvida olhar o módulo { Redirect } do react-router-dom mas isso somente para o ambiente
+    // de criar novos posts, porque a partir do momento que tiverem o id na url já estarão no ambiente 
+    // de update de post, ver também a possibilidade de inserir os posts em markdown e fazer preview deles
+    // na mesma tela, mas isso é detalhe pode ser visto posteriormente
     e.preventDefault()
     const values = serializeForm(e.target, { hash: true })
-    console.log(values)
+    const post = {
+      id: uuidv1(),
+      timestamp: Date.now(),
+      ...values,
+      author: 'qualquer um',
+      category: 'react'
+    }
+    this.props.insertPost(post)
   }
 
   handleTextChange = (event) => {
@@ -60,7 +78,7 @@ class HandlePost extends Component {
           title: post.title,
           body: post.body
         })
-        console.log(post)
+        // console.log(post)
       }  
     }
 
@@ -86,7 +104,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPost: (idPost) => dispatch(postFetchById(idPost))
+  fetchPost: (idPost) => dispatch(postFetchById(idPost)),
+  insertPost: (post) => dispatch(insertUpdatePost(post)),
+  updatePost: (post, id) => dispatch(insertUpdatePost(post, id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HandlePost))
