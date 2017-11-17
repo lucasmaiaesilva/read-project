@@ -1,4 +1,4 @@
-import { get, post } from '../utils/api'
+import { get, post, put } from '../utils/api'
 
 export function postsIsLoading(bool) {
   return {
@@ -65,7 +65,7 @@ export function postsFetchData() {
   }
 }
 
-export function insertUpdatePost(postData, id){
+export function insertPost(postData, id) {
   const baseUrl = 'http://localhost:3001/posts'
   const url = id ? `${baseUrl}/${id}` : baseUrl
   return (dispatch) => {
@@ -76,5 +76,22 @@ export function insertUpdatePost(postData, id){
       })
       .then(post => dispatch(insertUpdatePostSuccess(post)))
       .catch(() => dispatch(postsHasErrored(true)))
+  }
+}
+
+export function updatePost(id, title, body) {
+  const url = `http://localhost:3001/posts/${id}`
+  const data = {
+    title,
+    body
+  }
+  return (dispatch) => {
+    put(url, data)
+      .then(res => {
+        dispatch(postsIsLoading(false))
+        return res.data
+      })
+      .then(post => dispatch(insertUpdatePostSuccess(post)))
+      .catch(() => dispatch(postsHasErrored(true)))    
   }
 }

@@ -3,7 +3,7 @@ import serializeForm from 'form-serialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
-import { postFetchById, insertUpdatePost } from '../../actions/posts'
+import { postFetchById, insertPost, updatePost } from '../../actions/posts'
 import Notfound from '../Notfound'
 
 
@@ -105,8 +105,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPost: (idPost) => dispatch(postFetchById(idPost)),
-  insertPost: (post) => dispatch(insertUpdatePost(post)),
-  updatePost: (post, id) => dispatch(insertUpdatePost(post, id))
+  insertPost: (post) => dispatch(insertPost(post)),
+  updatePost: (id, post) => dispatch(updatePost(id, post))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HandlePost))
