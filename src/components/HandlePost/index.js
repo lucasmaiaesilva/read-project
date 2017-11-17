@@ -10,7 +10,10 @@ class HandlePost extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isUpdate: false,
+      update: {
+        isUpdate: false,
+        updatedValues: false
+      },
       title: '',
       body: ''
     }
@@ -22,10 +25,12 @@ class HandlePost extends Component {
     if (params.id) {
       this.props.fetchPost(params.id)
       this.setState({
-        isUpdate: true
+        update: {
+          isUpdate: true,
+          updatedValues: false
+        }
       })
     }
-    console.log('called did mount')
   }
 
   handleSubmit = (e) => {
@@ -42,15 +47,26 @@ class HandlePost extends Component {
   }
 
   render() {
-    const { isUpdate, title, body } = this.state
-    const { post } = this.props
-    const command = isUpdate === true ? 'Update' : 'Create'
-    if (isUpdate && post.title) {
-      console.log(post)
+    const { update, title, body } = this.state
+    const { post, fetchError } = this.props
+    const command = update.isUpdate === true ? 'Update' : 'Create'
+    if ( !update.updatedValues ) {
+      if (update.isUpdate && post.title) {
+        this.setState({
+          update: {
+            isUpdate: true,
+            updatedValues: true
+          },
+          title: post.title,
+          body: post.body
+        })
+        console.log(post)
+      }  
     }
-    // if (fetchError) {
-    //   return <Notfound />
-    // }
+
+    if (fetchError) {
+      return <Notfound />
+    }
 
     return (
       <form onSubmit={this.handleSubmit}>
