@@ -25,7 +25,6 @@ class HandlePost extends Component {
     const { match = {} } = this.props
     const { params = {} } = match
     if (params.id) {
-      console.log('fetchPost');
       this.props.fetchPost(params.id)
       this.setState({
         update: {

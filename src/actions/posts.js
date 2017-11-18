@@ -79,7 +79,7 @@ export function insertPost(postData, id) {
   }
 }
 
-export function updatePost(id, title, body) {
+export function updatePost(id, { title, body }) {
   const url = `http://localhost:3001/posts/${id}`
   const data = {
     title,
