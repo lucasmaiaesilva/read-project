@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
 import { postFetchById, insertPost, updatePost } from '../../actions/posts'
+import { categoriesFetchData } from '../../actions/categories'
 import Notfound from '../Notfound'
 
 
@@ -17,7 +18,9 @@ class HandlePost extends Component {
         updatedValues: false
       },
       title: '',
-      body: ''
+      body: '',
+      author: '',
+      category: ''
     }
   }
 
@@ -33,13 +36,14 @@ class HandlePost extends Component {
         }
       })
     }
+    this.props.categoriesFetchData()
   }
 
   componentWillReceiveProps(nextProps) {
     const { update } = this.state
     const { post } = nextProps
 
-    if ( !update.updatedValues ) {
+    if (!update.updatedValues) {
       if (update.isUpdate && post.title) {
         this.setState({
           update: {
@@ -47,9 +51,11 @@ class HandlePost extends Component {
             updatedValues: true
           },
           title: post.title,
-          body: post.body
+          body: post.body,
+          category: post.category,
+          author: post.author
         })
-      }  
+      }
     }
   }
 
@@ -68,9 +74,7 @@ class HandlePost extends Component {
     const post = {
       id: uuidv1(),
       timestamp: Date.now(),
-      ...values,
-      author: 'qualquer um',
-      category: 'react'
+      ...values
     }
     this.props.insertPost(post)
   }
@@ -83,10 +87,10 @@ class HandlePost extends Component {
   }
 
   render() {
-    const { update, title, body } = this.state
+    const { update, title, body, category, author } = this.state
     const { fetchError } = this.props
+    const { categories = [] } = this.props.categories
     const command = update.isUpdate === true ? 'Update' : 'Create'
-    
 
     if (fetchError) {
       return <Notfound />
@@ -94,8 +98,36 @@ class HandlePost extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" name="title" value={title} onChange={this.handleTextChange} />
-        <textarea type="content" name="body" value={body} onChange={this.handleTextChange} />
+        <div>
+          <label>Title</label>
+          <input type="text" name="title" value={title} onChange={this.handleTextChange} />
+        </div>
+        <div>
+          <label>Body</label>
+          <textarea type="content" name="body" value={body} onChange={this.handleTextChange} />
+        </div>
+
+        {!update.isUpdate && (
+          <div>
+            <div>
+              <label>Categories</label>
+              <select name="category" value={category}>
+                {categories.length > 0 && categories.map((c) => {
+                  return (
+                    <option value={c.name} key={c.path}  >
+                      {c.name}
+                    </option>
+                  )
+                }
+                )}
+              </select>
+            </div>
+            <div>
+              <label>Author</label>
+              <input type="text" name="author" value={author} onChange={this.handleTextChange} />
+            </div>
+          </div>
+        )}
         <button type="submit">{`${command} Post`}</button>
       </form>
     )
@@ -105,14 +137,16 @@ class HandlePost extends Component {
 const mapStateToProps = (state) => {
   return {
     post: state.post,
-    fetchError: state.postsHasErrored
+    fetchError: state.postsHasErrored,
+    categories: state.categories
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPost: (idPost) => dispatch(postFetchById(idPost)),
   insertPost: (post) => dispatch(insertPost(post)),
-  updatePost: (id, post) => dispatch(updatePost(id, post))
+  updatePost: (id, post) => dispatch(updatePost(id, post)),
+  categoriesFetchData: () => dispatch(categoriesFetchData())
   // para o método de update mandar somente o id e no objeto post mandar somente o title, post
 })
 
