@@ -25,6 +25,10 @@ class Posts extends Component {
               }}>
                 {post.title}
               </Link>
+              <span> - </span>
+              <Link to={`/admin/post/${post.id}`}>
+                ( edit this post )
+              </Link>
             </li>
           ))}
         </ul>
