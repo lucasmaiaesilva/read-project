@@ -57,8 +57,9 @@ export function postFetchById(idPost) {
  
 }
 
-export function postsFetchData() {
-  const url = 'http://localhost:3001/posts'
+export function postsFetchData(category) {
+  const baseUrl = 'http://localhost:3001'
+  const url = category ? `${baseUrl}/${category}/posts` : `${baseUrl}/posts`
   return (dispatch) => {
     dispatch(postsIsLoading(true))
     get(url)
