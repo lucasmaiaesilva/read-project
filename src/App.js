@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/posts/:id" component={Post} />
+          <Route path="/:category/:id" component={Post} />
           <Route path="/categories" component={Categories} />
           <Route path="/admin/post/:id" component={HandlePost} />
           <Route path="/admin/post" component={HandlePost} />

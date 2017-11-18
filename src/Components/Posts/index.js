@@ -35,7 +35,7 @@ class Posts extends Component {
           {posts.map(post => (
             <li key={post.id}>
               <Link to={{
-                pathname: `/posts/${post.id}`
+                pathname: `/${post.category}/${post.id}`
               }}>
                 {post.title}
               </Link>
