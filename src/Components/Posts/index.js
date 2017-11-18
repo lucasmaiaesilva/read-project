@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { postsFetchData } from '../../actions/posts'
+import { postsFetchData, deletePost } from '../../actions/posts'
 
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchData()
   }
+
+  onDeletePost = (id) => {
+      this.props.deletePost(id)
+  }
+
   render() {
     const { posts, hasErrored, isLoading } = this.props      
     if (hasErrored) {
@@ -17,6 +22,7 @@ class Posts extends Component {
     }
     return (
       <div>
+        <Link to='/admin/post'>CREATE NEW POST</Link>
         <ul>
           {posts.map(post => (
             <li key={post.id}>
@@ -29,10 +35,23 @@ class Posts extends Component {
               <Link to={`/admin/post/${post.id}`}>
                 ( edit this post )
               </Link>
+              <button onClick={() => this.onDeletePost(post.id)}> Delete </button>
+
+              <div>
+                Author: <b>{post.author}</b>
+              </div>
+              <div>
+                <b>{post.commentCount}</b> Comments
+              </div>
+              <div>
+                <button> - </button>
+                <b>{post.voteScore}</b> Votes
+              <button> + </button>
+              </div>
             </li>
           ))}
         </ul>
-        <Link to='/admin/post'>CREATE NEW POST</Link>
+        
       </div>
     )
   }
@@ -45,7 +64,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: () => dispatch(postsFetchData())
+  fetchData: () => dispatch(postsFetchData()),
+  deletePost: (idPost) => dispatch(deletePost(idPost))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)

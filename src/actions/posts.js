@@ -1,4 +1,4 @@
-import { get, post, put } from '../utils/api'
+import { get, post, put, deleteData } from '../utils/api'
 
 export function postsIsLoading(bool) {
   return {
@@ -35,6 +35,12 @@ export function insertUpdatePostSuccess(post) {
   }
 }
 
+export function deletePostSuccess(post) {
+  return {
+    type: 'DELETE_POST_SUCCESS',
+    post
+  }
+}
 
 export function postFetchById(idPost) {
   const url = `http://localhost:3001/posts/${idPost}`
@@ -92,6 +98,20 @@ export function updatePost(id, { title, body }) {
         return res.data
       })
       .then(post => dispatch(insertUpdatePostSuccess(post)))
+      .catch(() => dispatch(postsHasErrored(true)))    
+  }
+}
+
+export function deletePost(id) {
+  const url = `http://localhost:3001/posts/${id}`
+  
+  return (dispatch) => {
+    deleteData(url)
+      .then(res => {
+        dispatch(postsIsLoading(false))
+        return res.data
+      })
+      .then(post => dispatch(deletePostSuccess(post)))
       .catch(() => dispatch(postsHasErrored(true)))    
   }
 }
