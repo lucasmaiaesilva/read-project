@@ -25,6 +25,7 @@ class HandlePost extends Component {
     const { match = {} } = this.props
     const { params = {} } = match
     if (params.id) {
+      console.log('fetchPost');
       this.props.fetchPost(params.id)
       this.setState({
         update: {
@@ -35,9 +36,27 @@ class HandlePost extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { update } = this.state
+    const { post } = nextProps
+
+    if ( !update.updatedValues ) {
+      if (update.isUpdate && post.title) {
+        this.setState({
+          update: {
+            isUpdate: true,
+            updatedValues: true
+          },
+          title: post.title,
+          body: post.body
+        })
+      }  
+    }
+  }
+
   handleSubmit = (e) => {
-    const { update = {} } = this.state
-    const { isUpdate ={} } = update
+    // const { update = {} } = this.state
+    // const { isUpdate ={} } = update
     // separar os ambientes aqui e verificar se o isUpdate for true, usar o método de insert post,
     // mas se for false, usar o método de update post e não esquecer de passar o id,
     // se for usado o método de createPost no final dele redirecionar a rota para /admin/post/{idPost},
@@ -66,21 +85,9 @@ class HandlePost extends Component {
 
   render() {
     const { update, title, body } = this.state
-    const { post, fetchError } = this.props
+    const { fetchError } = this.props
     const command = update.isUpdate === true ? 'Update' : 'Create'
-    if ( !update.updatedValues ) {
-      if (update.isUpdate && post.title) {
-        this.setState({
-          update: {
-            isUpdate: true,
-            updatedValues: true
-          },
-          title: post.title,
-          body: post.body
-        })
-        // console.log(post)
-      }  
-    }
+    
 
     if (fetchError) {
       return <Notfound />
