@@ -28,6 +28,7 @@ class Posts extends Component {
             </li>
           ))}
         </ul>
+        <Link to='/admin/post'>CREATE NEW POST</Link>
       </div>
     )
   }
