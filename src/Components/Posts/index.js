@@ -12,7 +12,10 @@ class Posts extends Component {
   }
 
   onDeletePost = (id) => {
-      this.props.deletePost(id)
+      let resultConfirm = window.confirm('Delete this item')
+
+      if (resultConfirm)
+        this.props.deletePost(id)
   }
 
   render() {
