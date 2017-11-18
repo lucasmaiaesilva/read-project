@@ -6,6 +6,9 @@ import { postsFetchData, deletePost } from '../../actions/posts'
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchData()
+    const { match = {} } = this.props
+    const { params = {} } = match
+    console.log(!!params.category)
   }
 
   onDeletePost = (id) => {
@@ -23,6 +26,7 @@ class Posts extends Component {
     return (
       <div>
         <Link to='/admin/post'>CREATE NEW POST</Link>
+        <h1> List all posts of React </h1>
         <ul>
           {posts.map(post => (
             <li key={post.id}>
