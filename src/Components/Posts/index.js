@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+// import { confirm } from '../../utils/alerts'
 import { postsFetchData, deletePost } from '../../actions/posts'
 
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchData()
-    const { match = {} } = this.props
-    const { params = {} } = match
-    console.log(!!params.category)
+    // const { match = {} } = this.props
+    // const { params = {} } = match
+    // console.log(!!params.category)
   }
 
-  onDeletePost = (id) => {
-      const resultConfirm = window.confirm('Delete this item')
-
-      if (resultConfirm) {
-        this.props.deletePost(id)
-      }
+  onDeletePost = async (id) => {
+    const resultConfirm = window.confirm('Delete this item')
+    if (resultConfirm) {
+      await this.props.deletePost(id)
+      this.props.fetchData()
+    }
   }
 
   render() {
