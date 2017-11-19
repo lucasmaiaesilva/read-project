@@ -3,9 +3,24 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { confirm } from '../../utils/alerts'
 import { postsFetchData, deletePost } from '../../actions/posts'
+import Header from '../Header'
 
 class Posts extends Component {
   componentDidMount() {
+    this.listPosts()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { match = {} } = nextProps
+    const { params = {} } = match
+    const changedRouteCategory = params.category
+    const actualCategory = this.getCategoryName()
+    if (changedRouteCategory !== actualCategory) {
+      this.props.fetchData(changedRouteCategory)
+    }
+  }
+
+  listPosts = () => {
     const category = this.getCategoryName()
     if (this.isRenderedByCategory()) {
       this.props.fetchData(category)
@@ -45,7 +60,7 @@ class Posts extends Component {
     }
     return (
       <div>
-        <Link to='/admin/post'>CREATE NEW POST</Link>
+        <Header />
         <h1>{message}</h1>
         <ul>
           {posts.map(post => (

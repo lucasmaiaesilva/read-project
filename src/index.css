@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata|Raleway|Roboto+Condensed');
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+
+.App {
+  max-width: 1300px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 1.12rem;
+}
+
+/* font-family: 'Inconsolata', monospace;
+font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Raleway', sans-serif; */

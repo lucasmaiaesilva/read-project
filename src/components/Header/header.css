@@ -1,0 +1,18 @@
+.header {
+  /* height: 100px;
+  display: flex;
+  align-items: center; */
+}
+
+.logo {
+
+}
+
+.logo h1{
+  font-family: 'Inconsolata', monospace;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  margin: 0;
+  /* background: #eb1a1f;
+  color: #fff; */
+}
