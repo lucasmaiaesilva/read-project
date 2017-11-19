@@ -42,6 +42,13 @@ export function deletePostSuccess(post) {
   }
 }
 
+export function handleSort(sortBy) {
+  return {
+    type: 'HANDLE_SORT_POSTS',
+    sortBy
+  }
+}
+
 export function postFetchById(idPost) {
   const url = `http://localhost:3001/posts/${idPost}`
   return (dispatch) => {

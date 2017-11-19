@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { confirm } from '../../utils/alerts'
-import { postsFetchData, deletePost } from '../../actions/posts'
+import { postsFetchData, deletePost, handleSort } from '../../actions/posts'
 import { handleVoteScore } from '../../actions/votescore'
 import Header from '../Header'
 import VoteScore from '../VoteScore'
@@ -29,6 +29,8 @@ class Posts extends Component {
     } else {
       this.props.fetchData()
     }
+
+
   }
 
   isRenderedByCategory = () => {
@@ -58,6 +60,12 @@ class Posts extends Component {
     this.listPosts()
   }
 
+  handleSort = (sortBy) => {
+    return (e) => {
+      this.props.handleSort(sortBy)
+    }
+  }
+
   render() {
     const { posts, hasErrored, isLoading } = this.props
     const message = this.getCategoryName()
@@ -73,6 +81,10 @@ class Posts extends Component {
       <div>
         <Header />
         <h1>{message}</h1>
+        <div>
+          <button onClick={this.handleSort('timestamp')}>Ordenar por data</button>
+          <button onClick={this.handleSort('voteScore')}>Ordenar por score</button>
+        </div>
         <ul>
           {posts.map(post => (
             <li key={post.id}>
@@ -93,7 +105,7 @@ class Posts extends Component {
             </li>
           ))}
         </ul>
-        
+
       </div>
     )
   }
@@ -108,7 +120,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchData: (idCategory) => dispatch(postsFetchData(idCategory)),
   deletePost: (idPost) => dispatch(deletePost(idPost)),
-  handleScore: (url, value) => dispatch(handleVoteScore(url, value))
+  handleScore: (url, value) => dispatch(handleVoteScore(url, value)),
+  handleSort: (sortBy) => dispatch(handleSort(sortBy))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)

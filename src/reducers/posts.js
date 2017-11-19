@@ -4,6 +4,7 @@ const POSTS_FETCH_DATA_SUCCESS = 'POSTS_FETCH_DATA_SUCCESS'
 const POST_FETCH_BY_ID_DATA_SUCCESS = 'POST_FETCH_BY_ID_DATA_SUCCESS'
 const INSERT_UPDATE_POST_SUCCESS = 'INSERT_UPDATE_POST_SUCCESS'
 const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
+const HANDLE_SORT_POSTS = 'HANDLE_SORT_POSTS'
 
 export function postsIsLoading(state = false, action) {
   switch (action.type) {
@@ -23,10 +24,18 @@ export function postsHasErrored(state = false, action) {
   }
 }
 
+function sortBy(posts, sortBy) {
+  return posts.sort((a, b) => b[sortBy] - a[sortBy])
+}
+
 export function posts(state = [], action) {
   switch (action.type) {
     case POSTS_FETCH_DATA_SUCCESS:
       return action.posts
+    case HANDLE_SORT_POSTS:
+      return [
+        ...sortBy(state, action.sortBy)
+      ]
     default:
       return state
   }
