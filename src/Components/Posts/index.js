@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { confirm } from '../../utils/alerts'
 import { postsFetchData, deletePost } from '../../actions/posts'
+import { handleVoteScore } from '../../actions/votescore'
 import Header from '../Header'
+import VoteScore from '../VoteScore'
 
 class Posts extends Component {
   componentDidMount() {
@@ -40,11 +42,20 @@ class Posts extends Component {
   }
 
   onDeletePost = async (id) => {
-    const resultConfirm = window.confirm('Delete this item')
+    const resultConfirm = window.confirm('Are You Sure you want to Delete this item?')
     if (resultConfirm) {
       await this.props.deletePost(id)
       this.props.fetchData()
     }
+  }
+
+  handleScore = async (id, value) => {
+    const { handleScore } = this.props
+    // http post on /comments/:id for voteScore comment
+    const url = `http://localhost:3001/posts/${id}`
+    const res = { option: value }
+    await handleScore(url, res)
+    this.listPosts()
   }
 
   render() {
@@ -78,11 +89,7 @@ class Posts extends Component {
               <div>Author: <strong>{post.author}</strong></div>
               <div>Category: <strong> {post.category} </strong></div>
               <div><strong>{post.commentCount}</strong> Comments</div>
-              <div>
-                <button> - </button>
-                <strong>{post.voteScore}</strong> Votes
-              <button> + </button>
-              </div>
+              <VoteScore id={post.id} handleScore={this.handleScore} score={post.voteScore} />
             </li>
           ))}
         </ul>
@@ -100,7 +107,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: (idCategory) => dispatch(postsFetchData(idCategory)),
-  deletePost: (idPost) => dispatch(deletePost(idPost))
+  deletePost: (idPost) => dispatch(deletePost(idPost)),
+  handleScore: (url, value) => dispatch(handleVoteScore(url, value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)

@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 import Posts from './components/Posts'
 import Post from './components/Post'
 import Notfound from './components/Notfound'
-import Categories from './components/Categories'
 import HandlePost from './components/HandlePost'
 import HandleComment from './components/HandleComment'
 

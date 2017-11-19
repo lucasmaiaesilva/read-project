@@ -99,7 +99,7 @@ export function updatePost(id, { title, body }) {
         return res.data
       })
       .then(post => dispatch(insertUpdatePostSuccess(post)))
-      .catch(() => dispatch(postsHasErrored(true)))    
+      .catch(() => dispatch(postsHasErrored(true)))
   }
 }
 
@@ -113,6 +113,6 @@ export function deletePost(id) {
         return res.data
       })
       .then(post => dispatch(deletePostSuccess(post)))
-      .catch(() => dispatch(postsHasErrored(true)))    
+      .catch(() => dispatch(postsHasErrored(true))) 
   }
 }
