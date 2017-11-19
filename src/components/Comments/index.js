@@ -1,16 +1,29 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { deleteComment } from '../../actions/comments'
+import VoteScore from '../VoteScore'
+import { deleteComment, commentsFetchData } from '../../actions/comments'
+import { handleVoteScore } from '../../actions/votescore'
 import { connect } from 'react-redux'
 
 class Comments extends Component {
 
-  onDeleteComment = (id) => {
+  onDeleteComment = async (id) => {
+    const { idPost, deleteComment, fetchComments } = this.props
     const resultConfirm = window.confirm('Delete this item')
     if (resultConfirm) {
-      this.props.deleteComment(id)
+      await deleteComment(id)
+      fetchComments(idPost)
     }
   }
+
+  handleScore = async (id, value) => {
+    const { idPost, handleScore, fetchComments } = this.props
+    const url = `http://localhost:3001/comments/${id}`
+    const res = { option: value }
+    await handleScore(url, res)
+    fetchComments(idPost)
+  }
+
 
   render() {
     const { hasErrored, isLoading, data } = this.props
@@ -47,12 +60,9 @@ class Comments extends Component {
                 </div>
                 <div>
                   <b>{comment.commentCount}</b> Comments
-              </div>
-                <div>
-                  <button> - </button>
-                  <b>{comment.voteScore}</b> Votes
-                  <button> + </button>
                 </div>
+
+                <VoteScore id={comment.id} handleScore={this.handleScore} score={comment.voteScore} />
               </li>
             ))}
           </ul>
@@ -63,10 +73,16 @@ class Comments extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  data: state.comments,
+  isLoading: state.commentsIsLoading,
+  hasErrored: state.commentsHasErrored,
+})
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteComment: (idComment) => dispatch(deleteComment(idComment))
+  deleteComment: (idComment) => dispatch(deleteComment(idComment)),
+  fetchComments: (idPost) => dispatch(commentsFetchData(idPost)),
+  handleScore: (url, value) => dispatch(handleVoteScore(url, value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments)

@@ -53,7 +53,6 @@ class Posts extends Component {
 
   handleScore = async (id, value) => {
     const { handleScore } = this.props
-    // http post on /comments/:id for voteScore comment
     const url = `http://localhost:3001/posts/${id}`
     const res = { option: value }
     await handleScore(url, res)
