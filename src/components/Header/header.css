@@ -4,8 +4,9 @@
   align-items: center; */
 }
 
-.logo {
-
+.logo a {
+  color: #333;
+  text-decoration: none;
 }
 
 .logo h1{

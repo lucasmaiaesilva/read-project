@@ -31,9 +31,11 @@ class Header extends Component {
     return (
       <section className="header">
         <div className="logo">
-          <h1>Projeto Leitura</h1>
+          <Link to="/">
+            <h1>Projeto Leitura</h1>
+          </Link>
         </div>
-        <Link to='/admin/post'>CREATE NEW POST</Link>
+        <Link to="/admin/post">CREATE NEW POST</Link>
         <nav>
           {this.renderMenu()}
         </nav>
