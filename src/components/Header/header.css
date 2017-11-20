@@ -70,6 +70,11 @@
   text-decoration: underline;
 }
 
+.main-menu ul li a.active {
+  color: #EB191E;
+  font-weight: 800;
+}
+
 @media screen and (min-width: 734px) {
   .header {
     height: 5rem;

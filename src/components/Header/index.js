@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { categoriesFetchData } from '../../actions/categories'
 import './header.css'
 
@@ -17,9 +17,9 @@ class Header extends Component {
         <ul>
           {menu.categories.map(item => (
             <li key={item.name}>
-              <Link to={{
+              <NavLink activeClassName = 'active' to={{
                 pathname: `/${item.path}`
-              }}>{item.name}</Link>
+              }}>{item.name}</NavLink>
             </li>
           ))}
         </ul>
