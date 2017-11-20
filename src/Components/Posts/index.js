@@ -6,6 +6,7 @@ import { postsFetchData, deletePost, handleSort } from '../../actions/posts'
 import { handleVoteScore } from '../../actions/votescore'
 import Header from '../Header'
 import VoteScore from '../VoteScore'
+import './posts.css'
 
 class Posts extends Component {
   componentDidMount() {
@@ -67,9 +68,7 @@ class Posts extends Component {
 
   render() {
     const { posts, hasErrored, isLoading } = this.props
-    const message = this.getCategoryName()
-      ? `List all posts of ${this.getCategoryName()}`
-      : 'List all posts'
+    const message = this.getCategoryName() ? true : false
     if (hasErrored) {
       return <h1>Sorry but there was an error while fetch</h1>
     }
@@ -79,27 +78,41 @@ class Posts extends Component {
     return (
       <div>
         <Header />
+        {message && <div className="message-posts-by-category">
+          <small>All posts from category</small>
+          <h2>{this.getCategoryName()}</h2>
+        </div>}
         <h1>{message}</h1>
         <div>
-          <button onClick={this.handleSort('timestamp')}>Ordenar por data</button>
-          <button onClick={this.handleSort('voteScore')}>Ordenar por score</button>
+          Order By: 
+          <button onClick={this.handleSort('timestamp')}>Data</button>
+          <button onClick={this.handleSort('voteScore')}>Score</button>
         </div>
-        <ul>
+        <ul className="list-posts">
           {posts.map(post => (
             <li key={post.id}>
-              <Link to={{
-                pathname: `/${post.category}/${post.id}`
-              }}>
-                {post.title}
-              </Link>
-              <span> - </span>
-              <Link to={`/admin/post/${post.id}`}>
-                ( edit this post )
-              </Link>
-              <button onClick={() => this.onDeletePost(post.id)}> Delete </button>
+              <div className="post-header">
+                <Link to={{
+                  pathname: `/${post.category}/${post.id}`
+                }}>
+                  {post.title}
+                </Link>
+              </div>
+
+              <span className="edit">
+                <Link to={`/admin/post/${post.id}`}>
+                  edit
+                </Link>
+              </span>
+
+              <button className="delete" onClick={() => this.onDeletePost(post.id)}> Delete </button>
+              
               <div>Author: <strong>{post.author}</strong></div>
+
               <div>Category: <strong> {post.category} </strong></div>
+
               <div><strong>{post.commentCount}</strong> Comments</div>
+
               <VoteScore id={post.id} handleScore={this.handleScore} score={post.voteScore} />
             </li>
           ))}

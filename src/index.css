@@ -13,6 +13,23 @@ body {
   padding: 0 1.12rem;
 }
 
-/* font-family: 'Inconsolata', monospace;
-font-family: 'Roboto Condensed', sans-serif;
-font-family: 'Raleway', sans-serif; */
+button {
+  background: #1a75eb;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  margin: 0 .5rem;
+  padding: .1rem .3rem;
+}
+
+input, textarea, select {
+  font-family: 'Raleway', sans-serif;
+  display: block;
+  box-sizing: border-box;
+  width: 14rem;
+  font-size: .8rem;
+  padding: .5rem;
+  margin-top: .2rem;
+  margin-bottom: .5rem;
+}
