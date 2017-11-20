@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Posts from './components/Posts'
-import Post from './components/Post'
-import Notfound from './components/Notfound'
-import HandlePost from './components/HandlePost'
-import HandleComment from './components/HandleComment'
+import Posts from './Components/Posts'
+import Post from './Components/Post'
+import NotFound from './Components/NotFound'
+import HandlePost from './Components/HandlePost'
+import HandleComment from './Components/HandleComment'
 
 class App extends Component {
 
@@ -19,7 +19,7 @@ class App extends Component {
           <Route path="/:category/:id" component={Post} />
           <Route path="/:category" component={Posts} />
           <Route exact path="/" component={Posts} />
-          <Route component={Notfound} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     )

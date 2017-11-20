@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../Header'
 
-const Notfound = () => {
+const NotFound = () => {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ const Notfound = () => {
   )
 }
 
-export default Notfound
+export default NotFound

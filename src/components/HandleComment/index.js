@@ -6,7 +6,7 @@ import uuidv1 from 'uuid/v1'
 import swal from 'sweetalert2'
 import Header from '../Header'
 import { insertComment, commentFetchById, updateComment } from '../../actions/comments'
-import Notfound from '../Notfound'
+import NotFound from '../NotFound'
 
 
 class HandleComment extends Component {
@@ -106,7 +106,7 @@ class HandleComment extends Component {
     const command = update.isUpdate === true ? 'Update' : 'Create'
 
     if (fetchError) {
-      return <Notfound />
+      return <NotFound />
     }
 
     return (

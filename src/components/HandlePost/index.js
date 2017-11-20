@@ -7,7 +7,7 @@ import swal from 'sweetalert2'
 import Header from '../Header'
 import { postFetchById, insertPost, updatePost } from '../../actions/posts'
 import { categoriesFetchData } from '../../actions/categories'
-import Notfound from '../Notfound'
+import NotFound from '../NotFound'
 
 
 class HandlePost extends Component {
@@ -98,7 +98,7 @@ class HandlePost extends Component {
     const command = update.isUpdate === true ? 'Update' : 'Create'
 
     if (fetchError) {
-      return <Notfound />
+      return <NotFound />
     }
 
     return (
