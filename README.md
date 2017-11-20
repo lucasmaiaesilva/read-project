@@ -9,10 +9,7 @@ Clone the GitHub repository and use npm to install.
 ```sh
 $ git clone https://github.com/lucasmaiaesilva/read-project.git
 $ cd read-project
-## npm install
 $ npm install
-## yarn install
-$ yarn
 ```
 
 ## Usage
@@ -22,18 +19,13 @@ Before start the project you must download the server and run the code on the 30
 ```sh
 $ git clone git@github.com:udacity/reactnd-project-readable-starter.git
 $ cd reactnd-project-readable-starter/api-server
-## npm install
 $ npm install
-## yarn install
-$ yarn
 ```
 
 After you clone the server you can start the application with:
 
 ```sh
 $ npm start
-## or
-$ yarn start
 ```
 
 Remember to start both applications the server for the API and the read project to run the App.
