@@ -4,6 +4,7 @@ import Header from '../Header'
 import { commentsFetchData } from '../../actions/comments'
 import { postFetchById } from '../../actions/posts'
 import Comments from '../Comments'
+import './post.css'
 
 class Post extends PureComponent {
   componentDidMount() {
@@ -27,9 +28,9 @@ class Post extends PureComponent {
         <Header />
 
         <article>
-          <h1>{post.title}</h1>
+          <h1 className="post-title">{post.title}</h1>
 
-          <div>
+          <div className="post-body">
             {post.body}
           </div>
 
