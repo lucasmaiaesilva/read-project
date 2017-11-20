@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import { confirm } from '../../utils/alerts'
 import { postsFetchData, deletePost, handleSort } from '../../actions/posts'
 import { handleVoteScore } from '../../actions/votescore'
 import Header from '../Header'
