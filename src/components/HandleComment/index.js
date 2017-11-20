@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
 import swal from 'sweetalert2'
+import Header from '../Header'
 import { insertComment, commentFetchById, updateComment } from '../../actions/comments'
 import Notfound from '../Notfound'
 
@@ -109,21 +110,25 @@ class HandleComment extends Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>Body</label>
-          <textarea type="content" name="body" value={body} onChange={this.handleTextChange} />
-        </div>
+      <div>
+        <Header />
 
-        {!update.isUpdate && (
+        <form onSubmit={this.handleSubmit}>
           <div>
-            <label>Author</label>
-            <input type="text" name="author" value={author} onChange={this.handleTextChange} />
+            <label>Body</label>
+            <textarea type="content" name="body" value={body} onChange={this.handleTextChange} />
           </div>
-        )}
 
-        <button type="submit">{`${command} Comment`}</button>
-      </form>
+          {!update.isUpdate && (
+            <div>
+              <label>Author</label>
+              <input type="text" name="author" value={author} onChange={this.handleTextChange} />
+            </div>
+          )}
+
+          <button type="submit">{`${command} Comment`}</button>
+        </form>
+      </div>
     )
   }
 }

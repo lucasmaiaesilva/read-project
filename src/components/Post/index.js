@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import Header from '../Header'
 import { commentsFetchData } from '../../actions/comments'
 import { postFetchById } from '../../actions/posts'
 import Comments from '../Comments'
@@ -22,13 +23,19 @@ class Post extends PureComponent {
       return <h1>Loading...</h1>
     }
     return (
-      <article>
-        <h1>{post.title}</h1>
-        <div>
-          {post.body}
-        </div>
-        <Comments idPost={id} />
-      </article>
+      <div>
+        <Header />
+
+        <article>
+          <h1>{post.title}</h1>
+
+          <div>
+            {post.body}
+          </div>
+
+          <Comments idPost={id} />
+        </article>
+      </div>
     )
   }
 }

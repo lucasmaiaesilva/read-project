@@ -39,11 +39,9 @@ class Comments extends Component {
 
     return (
       <div>
-
         <div>
           <h2>Comments</h2>
           <Link to={`/admin/comment/${idPost}`}>Add new COMMENT</Link>
-
           <ul>
             {data.map(comment => (
               <li key={comment.id}>
