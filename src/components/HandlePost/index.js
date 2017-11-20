@@ -3,6 +3,7 @@ import serializeForm from 'form-serialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
+import swal from 'sweetalert2'
 import { postFetchById, insertPost, updatePost } from '../../actions/posts'
 import { categoriesFetchData } from '../../actions/categories'
 import Notfound from '../Notfound'
@@ -60,15 +61,10 @@ class HandlePost extends Component {
   }
 
   handleSubmit = (e) => {
-    // const { update = {} } = this.state
-    // const { isUpdate ={} } = update
-    // separar os ambientes aqui e verificar se o isUpdate for true, usar o método de insert post,
-    // mas se for false, usar o método de update post e não esquecer de passar o id,
-    // se for usado o método de createPost no final dele redirecionar a rota para /admin/post/{idPost},
-    // qualquer dúvida olhar o módulo { Redirect } do react-router-dom mas isso somente para o ambiente
-    // de criar novos posts, porque a partir do momento que tiverem o id na url já estarão no ambiente 
-    // de update de post, ver também a possibilidade de inserir os posts em markdown e fazer preview deles
-    // na mesma tela, mas isso é detalhe pode ser visto posteriormente
+    const { update = {} } = this.state
+    const { isUpdate = {} } = update
+    const { insertPost, updatePost, match = {} } = this.props
+    const { params = {} } = match
     e.preventDefault()
     const values = serializeForm(e.target, { hash: true })
     const post = {
@@ -76,7 +72,15 @@ class HandlePost extends Component {
       timestamp: Date.now(),
       ...values
     }
-    this.props.insertPost(post)
+    if (isUpdate) {
+      updatePost(params.id, post)
+    } else {
+      insertPost(post)
+    }
+    swal(
+      `Saved Post with success !`,
+      'success'
+    )
   }
 
   handleTextChange = (event) => {
@@ -111,10 +115,10 @@ class HandlePost extends Component {
           <div>
             <div>
               <label>Categories</label>
-              <select name="category" value={category}>
+              <select name="category" value={category} onChange={this.handleTextChange}>
                 {categories.length > 0 && categories.map((c) => {
                   return (
-                    <option value={c.name} key={c.path}  >
+                    <option value={c.name} key={c.path}>
                       {c.name}
                     </option>
                   )
@@ -147,7 +151,6 @@ const mapDispatchToProps = (dispatch) => ({
   insertPost: (post) => dispatch(insertPost(post)),
   updatePost: (id, post) => dispatch(updatePost(id, post)),
   categoriesFetchData: () => dispatch(categoriesFetchData())
-  // para o método de update mandar somente o id e no objeto post mandar somente o title, post
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HandlePost))

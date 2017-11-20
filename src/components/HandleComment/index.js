@@ -3,6 +3,7 @@ import serializeForm from 'form-serialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
+import swal from 'sweetalert2'
 import { insertComment, commentFetchById, updateComment } from '../../actions/comments'
 import Notfound from '../Notfound'
 
@@ -59,6 +60,7 @@ class HandleComment extends Component {
 
     const { match = {} } = this.props
     const { params = {} } = match
+    const { insertComment, updateComment } = this.props
 
     const values = serializeForm(e.target, { hash: true })
 
@@ -73,8 +75,7 @@ class HandleComment extends Component {
         ...values,
         parentId: params.idPost
       }
-
-      this.props.insertComment(comment)
+      insertComment(comment)
     }
     else {
       idComment = params.id
@@ -83,9 +84,12 @@ class HandleComment extends Component {
         timestamp: Date.now(),
         ...values
       }
-
-      this.props.updateComment(idComment, comment)
+      updateComment(idComment, comment)
     }
+    swal(
+      `Saved Comment with success !`,
+      'success'
+    )
   }
 
   handleTextChange = (event) => {
@@ -117,7 +121,7 @@ class HandleComment extends Component {
             <input type="text" name="author" value={author} onChange={this.handleTextChange} />
           </div>
         )}
-        
+
         <button type="submit">{`${command} Comment`}</button>
       </form>
     )

@@ -26,7 +26,7 @@ class Comments extends Component {
 
 
   render() {
-    const { hasErrored, isLoading, data } = this.props
+    const { hasErrored, isLoading, data, idPost } = this.props
 
     if (hasErrored) {
       return <h1>Sorry but there was an error while fetch</h1>
@@ -42,7 +42,7 @@ class Comments extends Component {
 
         <div>
           <h2>Comments</h2>
-          <Link to={`/admin/comment/${parentId}`}>Add new COMMENT</Link>
+          <Link to={`/admin/comment/${idPost}`}>Add new COMMENT</Link>
 
           <ul>
             {data.map(comment => (
