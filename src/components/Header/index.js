@@ -35,8 +35,10 @@ class Header extends Component {
             <h1>Projeto Leitura</h1>
           </Link>
         </div>
-        <Link to="/admin/post">CREATE NEW POST</Link>
-        <nav>
+        <span className="create-post">
+          <Link to="/admin/post">CREATE NEW POST</Link>
+        </span>
+        <nav className="main-menu">
           {this.renderMenu()}
         </nav>
       </section>  
