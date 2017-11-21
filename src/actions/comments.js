@@ -1,29 +1,37 @@
 import { get, post, put, deleteData } from '../utils/api'
+import {
+  COMMENTS_IS_LOADING,
+  COMMENTS_HAS_ERRORED,
+  COMMENTS_FETCH_DATA_SUCCESS,
+  COMMENT_FETCH_BY_ID_DATA_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  INSERT_UPDATE_COMMENT_SUCCESS
+} from '../utils/actionTypes'
 
 export function commentsIsLoading(bool) {
   return {
-    type: 'COMMENTS_IS_LOADING',
+    type: COMMENTS_IS_LOADING,
     isLoading: bool
   }
 }
 
 export function commentsHasErrored(bool) {
   return {
-    type: 'COMMENTS_HAS_ERRORED',
+    type: COMMENTS_HAS_ERRORED,
     hasErrored: bool
   }
 }
 
 export function commentsFetchDataSuccess(comments) {
   return {
-    type: 'COMMENTS_FETCH_DATA_SUCCESS',
+    type: COMMENTS_FETCH_DATA_SUCCESS,
     comments
   }
 }
 
 export function commentFetchByIdDataSuccess(comment) {
   return {
-    type: 'COMMENT_FETCH_BY_ID_DATA_SUCCESS',
+    type: COMMENT_FETCH_BY_ID_DATA_SUCCESS,
     comment
   }
 }
@@ -31,14 +39,14 @@ export function commentFetchByIdDataSuccess(comment) {
 
 export function deleteCommentSuccess(comment) {
   return {
-    type: 'DELETE_COMMENT_SUCCESS',
+    type: DELETE_COMMENT_SUCCESS,
     comment
   }
 }
 
 export function insertUpdateCommentSuccess(comment) {
   return {
-    type: 'INSERT_UPDATE_COMMENT_SUCCESS',
+    type: INSERT_UPDATE_COMMENT_SUCCESS,
     comment
   }
 }

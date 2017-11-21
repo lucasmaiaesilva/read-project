@@ -6,24 +6,19 @@ import NotFound from './Components/NotFound'
 import HandlePost from './Components/HandlePost'
 import HandleComment from './Components/HandleComment'
 
-class App extends Component {
-
-  render() {
-    return (
-      <div className="App">
-        <Switch>
-          <Route path="/admin/post/:id" component={HandlePost} />
-          <Route path="/admin/post" component={HandlePost} />
-          <Route path="/admin/comment/:idPost/:id" component={HandleComment} />
-          <Route path="/admin/comment/:idPost" component={HandleComment} />
-          <Route path="/:category/:id" component={Post} />
-          <Route path="/:category" component={Posts} />
-          <Route exact path="/" component={Posts} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <div className="App">
+    <Switch>
+      <Route path="/admin/post/:id" component={HandlePost} />
+      <Route path="/admin/post" component={HandlePost} />
+      <Route path="/admin/comment/:idPost/:id" component={HandleComment} />
+      <Route path="/admin/comment/:idPost" component={HandleComment} />
+      <Route path="/:category/:id" component={Post} />
+      <Route path="/:category" component={Posts} />
+      <Route exact path="/" component={Posts} />
+      <Route component={NotFound} />
+    </Switch>
+  </div>
+)
 
 export default App

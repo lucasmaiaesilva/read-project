@@ -1,50 +1,59 @@
 import { get, post, put, deleteData } from '../utils/api'
+import {
+  POSTS_IS_LOADING,
+  POSTS_HAS_ERRORED,
+  POSTS_FETCH_DATA_SUCCESS,
+  POST_FETCH_BY_ID_DATA_SUCCESS,
+  INSERT_UPDATE_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
+  HANDLE_SORT_POSTS
+} from '../utils/actionTypes'
 
 export function postsIsLoading(bool) {
   return {
-    type: 'POSTS_IS_LOADING',
+    type: POSTS_IS_LOADING,
     isLoading: bool
   }
 }
 
 export function postsHasErrored(bool) {
   return {
-      type: 'POSTS_HAS_ERRORED',
+      type: POSTS_HAS_ERRORED,
       hasErrored: bool
   }
 }
 
 export function postsFetchDataSuccess(posts) {
   return {
-    type: 'POSTS_FETCH_DATA_SUCCESS',
+    type: POSTS_FETCH_DATA_SUCCESS,
     posts
   }
 }
 
 export function postFetchByIdDataSuccess(post) {
   return {
-    type: 'POST_FETCH_BY_ID_DATA_SUCCESS',
+    type: POST_FETCH_BY_ID_DATA_SUCCESS,
     post
   }
 }
 
 export function insertUpdatePostSuccess(post) {
   return {
-    type: 'INSERT_UPDATE_POST_SUCCESS',
+    type: INSERT_UPDATE_POST_SUCCESS,
     post
   }
 }
 
 export function deletePostSuccess(post) {
   return {
-    type: 'DELETE_POST_SUCCESS',
+    type: DELETE_POST_SUCCESS,
     post
   }
 }
 
 export function handleSort(sortBy) {
   return {
-    type: 'HANDLE_SORT_POSTS',
+    type: HANDLE_SORT_POSTS,
     sortBy
   }
 }

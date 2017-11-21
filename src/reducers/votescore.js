@@ -1,4 +1,4 @@
-const VOTE_SCORE_SUCCESS = 'VOTE_SCORE_SUCCESS'
+import { VOTE_SCORE_SUCCESS } from '../utils/actionTypes'
 
 export function voteScore(state = [], action) {
   switch (action.type) {
