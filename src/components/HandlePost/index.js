@@ -64,7 +64,7 @@ class HandlePost extends Component {
   handleSubmit = (e) => {
     const { update = {} } = this.state
     const { isUpdate = {} } = update
-    const { insertPost, updatePost, match = {} } = this.props
+    const { insertPost, updatePost, match = {}, history } = this.props
     const { params = {} } = match
     e.preventDefault()
     const values = serializeForm(e.target, { hash: true })
@@ -82,6 +82,7 @@ class HandlePost extends Component {
       `Saved Post with success !`,
       'success'
     )
+    history.goBack()
   }
 
   handleTextChange = (event) => {

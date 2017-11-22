@@ -1,16 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import swal from 'sweetalert2'
 import VoteScore from '../VoteScore'
 import { deleteComment, commentsFetchData } from '../../actions/comments'
 import { handleVoteScore } from '../../actions/votescore'
 import { connect } from 'react-redux'
 
-const onDeleteComment = async (id, props) => {
-  const { idPost, deleteComment, fetchComments } = props
+const onDeleteComment = async (id, props, history) => {
+  const { deleteComment } = props
   const resultConfirm = window.confirm('Delete this item')
   if (resultConfirm) {
     await deleteComment(id)
-    fetchComments(idPost)
+    swal(
+      `Post deleted with success !`,
+      'success'
+    )
+    history.goBack()
   }
 }
 
@@ -24,7 +29,7 @@ const handleScore = async (id, value, props) => {
 
 
 const Comments = (props) => {
-  const { hasErrored, isLoading, data, idPost } = props
+  const { hasErrored, isLoading, data, idPost, history  } = props
   
   if (hasErrored) {
     return <h1>Sorry but there was an error while fetch</h1>
@@ -49,11 +54,12 @@ const Comments = (props) => {
                 ( edit this comment )
               </Link>
 
-              <button onClick={() => onDeleteComment(comment.id, props)}> Delete </button>
+              <button onClick={() => onDeleteComment(comment.id, props, history)}> Delete </button>
 
               <div>
                 Author: <b>{comment.author}</b>
               </div>
+
               <div>
                 <b>{comment.commentCount}</b> Comments
               </div>

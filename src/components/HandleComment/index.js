@@ -59,7 +59,7 @@ class HandleComment extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    const { match = {} } = this.props
+    const { match = {}, history } = this.props
     const { params = {} } = match
     const { insertComment, updateComment } = this.props
 
@@ -91,6 +91,7 @@ class HandleComment extends Component {
       `Saved Comment with success !`,
       'success'
     )
+    history.goBack()
   }
 
   handleTextChange = (event) => {
@@ -106,6 +107,10 @@ class HandleComment extends Component {
     const command = update.isUpdate === true ? 'Update' : 'Create'
 
     if (fetchError) {
+      return <NotFound />
+    }
+
+    if (update.isUpdate && body === '') {
       return <NotFound />
     }
 
